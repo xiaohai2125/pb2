@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/bijia?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&zeroDateTimeBehavior=convertToNull
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+  type-aliases-package: com.pinbang.pb.entity
+  configuration:
+    auto-mapping-behavior: none
+
+pagehelper:
+  reasonable: true
+logging:
+  config: classpath:logback-test.xml
+
+
+

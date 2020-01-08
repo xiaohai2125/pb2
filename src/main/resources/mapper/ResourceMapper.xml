@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinbang.pb.mapper.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.pinbang.pb.entity.Resource">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="r_type" jdbcType="VARCHAR" property="rType" />
+    <result column="r_cover" jdbcType="VARCHAR" property="rCover" />
+    <result column="r_title" jdbcType="VARCHAR" property="rTitle" />
+    <result column="r_subtitle" jdbcType="VARCHAR" property="rSubtitle" />
+    <result column="r_picpath" jdbcType="VARCHAR" property="rPicpath" />
+    <result column="r_url" jdbcType="VARCHAR" property="rUrl" />
+    <result column="r_weight" jdbcType="TINYINT" property="rWeight" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, r_type, r_cover, r_title, r_subtitle, r_picpath, r_url, r_weight, create_time, 
+    modify_time, is_delete
+  </sql>
+  <select id="selectByExample" parameterType="com.pinbang.pb.entity.ResourceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from resource
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from resource
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pinbang.pb.entity.ResourceExample">
+    delete from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pinbang.pb.entity.Resource">
+    insert into resource (id, r_type, r_cover, 
+      r_title, r_subtitle, r_picpath, 
+      r_url, r_weight, create_time, 
+      modify_time, is_delete)
+    values (#{id,jdbcType=BIGINT}, #{rType,jdbcType=VARCHAR}, #{rCover,jdbcType=VARCHAR}, 
+      #{rTitle,jdbcType=VARCHAR}, #{rSubtitle,jdbcType=VARCHAR}, #{rPicpath,jdbcType=VARCHAR}, 
+      #{rUrl,jdbcType=VARCHAR}, #{rWeight,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pinbang.pb.entity.Resource">
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rType != null">
+        r_type,
+      </if>
+      <if test="rCover != null">
+        r_cover,
+      </if>
+      <if test="rTitle != null">
+        r_title,
+      </if>
+      <if test="rSubtitle != null">
+        r_subtitle,
+      </if>
+      <if test="rPicpath != null">
+        r_picpath,
+      </if>
+      <if test="rUrl != null">
+        r_url,
+      </if>
+      <if test="rWeight != null">
+        r_weight,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rType != null">
+        #{rType,jdbcType=VARCHAR},
+      </if>
+      <if test="rCover != null">
+        #{rCover,jdbcType=VARCHAR},
+      </if>
+      <if test="rTitle != null">
+        #{rTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rSubtitle != null">
+        #{rSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rPicpath != null">
+        #{rPicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="rUrl != null">
+        #{rUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rWeight != null">
+        #{rWeight,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pinbang.pb.entity.ResourceExample" resultType="java.lang.Long">
+    select count(*) from resource
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update resource
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.rType != null">
+        r_type = #{record.rType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rCover != null">
+        r_cover = #{record.rCover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rTitle != null">
+        r_title = #{record.rTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rSubtitle != null">
+        r_subtitle = #{record.rSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rPicpath != null">
+        r_picpath = #{record.rPicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rUrl != null">
+        r_url = #{record.rUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rWeight != null">
+        r_weight = #{record.rWeight,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update resource
+    set id = #{record.id,jdbcType=BIGINT},
+      r_type = #{record.rType,jdbcType=VARCHAR},
+      r_cover = #{record.rCover,jdbcType=VARCHAR},
+      r_title = #{record.rTitle,jdbcType=VARCHAR},
+      r_subtitle = #{record.rSubtitle,jdbcType=VARCHAR},
+      r_picpath = #{record.rPicpath,jdbcType=VARCHAR},
+      r_url = #{record.rUrl,jdbcType=VARCHAR},
+      r_weight = #{record.rWeight,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pinbang.pb.entity.Resource">
+    update resource
+    <set>
+      <if test="rType != null">
+        r_type = #{rType,jdbcType=VARCHAR},
+      </if>
+      <if test="rCover != null">
+        r_cover = #{rCover,jdbcType=VARCHAR},
+      </if>
+      <if test="rTitle != null">
+        r_title = #{rTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rSubtitle != null">
+        r_subtitle = #{rSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="rPicpath != null">
+        r_picpath = #{rPicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="rUrl != null">
+        r_url = #{rUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rWeight != null">
+        r_weight = #{rWeight,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pinbang.pb.entity.Resource">
+    update resource
+    set r_type = #{rType,jdbcType=VARCHAR},
+      r_cover = #{rCover,jdbcType=VARCHAR},
+      r_title = #{rTitle,jdbcType=VARCHAR},
+      r_subtitle = #{rSubtitle,jdbcType=VARCHAR},
+      r_picpath = #{rPicpath,jdbcType=VARCHAR},
+      r_url = #{rUrl,jdbcType=VARCHAR},
+      r_weight = #{rWeight,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
